@@ -31,14 +31,46 @@ function serverDetails(){
 		success: function (data) {
 			if(data.instance_ids=="[]")
 			{
-				document.getElementById("startServer").disabled=false
-				document.getElementById("stopServer").disabled=true
+				document.getElementById("startServer").disabled=false;
+				document.getElementById("stopServer").disabled=true;
 			} 
 			else
 			{
-			   	document.getElementById("startServer").disabled=true
-				document.getElementById("stopServer").disabled=false
+			   	document.getElementById("startServer").disabled=true;
+				document.getElementById("stopServer").disabled=false;
 			}		
+		},
+		error: function () {
+		   console.log('Error while calling Config service');
+		}
+
+	});
+}
+
+function startServer(){
+		$.ajax({
+		url: 'https://ngu8q8ko13.execute-api.ap-south-1.amazonaws.com/Prod/ec2/Start',
+		method: 'GET',
+		success: function (data) {
+              document.getElementById("startServer").disabled=true;	
+			  document.getElementById("stopServer").disabled=false;	
+			  alert('server started successfully!');
+		},
+		error: function () {
+		   console.log('Error while calling Config service');
+		}
+
+	});
+}
+
+function stopServer(){
+		$.ajax({
+		url: 'https://ngu8q8ko13.execute-api.ap-south-1.amazonaws.com/Prod/ec2/Stop',
+		method: 'GET',
+		success: function (data) {
+              document.getElementById("startServer").disabled=false;	
+			  document.getElementById("stopServer").disabled=true;	
+			  alert('server stopped successfully!');
 		},
 		error: function () {
 		   console.log('Error while calling Config service');
