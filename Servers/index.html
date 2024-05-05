@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+  
+</head>
+<body>
+
+<div class="container" id="bodyDiv">
+ 			 <button type="button" id="serverDetails" onclick="serverDetails()">Server Details</button>
+			 <button type="button" id="startServer" disabled =true onclick="startServer()">Start Server</button>
+			 <button type="button" id="stopServer" disabled =true onclick="stopServer()">Stop Server</button>
+</div>
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <!-- Latest compiled and minified Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <script>
+
+function serverDetails(){
+		$.ajax({
+		url: 'https://ngu8q8ko13.execute-api.ap-south-1.amazonaws.com/Prod/ec2/running',
+		method: 'GET',
+		success: function (data) {
+			if(data.instance_ids=="[]")
+			{
+				document.getElementById("startServer").disabled=false
+				document.getElementById("stopServer").disabled=true
+			} 
+			else
+			{
+			   	document.getElementById("startServer").disabled=true
+				document.getElementById("stopServer").disabled=false
+			}		
+		},
+		error: function () {
+		   console.log('Error while calling Config service');
+		}
+
+	});
+}
+
+</script>
+</body>
+</html>
