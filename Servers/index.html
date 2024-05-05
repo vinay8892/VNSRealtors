@@ -12,8 +12,13 @@
 
 <div class="container" id="bodyDiv">
  			 <button type="button" id="serverDetails" onclick="serverDetails()">Server Details</button>
-			 <button type="button" id="startServer" disabled =true onclick="startServer()">Start Server</button>
-			 <button type="button" id="stopServer" disabled =true onclick="stopServer()">Stop Server</button>
+			 </br>
+			 <P id="details"></p>
+			 </br>
+			 <button type="button" id="startServer"  disabled =true onclick="startServer()">Start Server</button>
+			 </br>
+			 </br>
+			 <button type="button" id="stopServer"  disabled =true onclick="stopServer()">Stop Server</button>
 </div>
 
 
@@ -29,19 +34,21 @@ function serverDetails(){
 		url: 'https://ngu8q8ko13.execute-api.ap-south-1.amazonaws.com/Prod/ec2/running',
 		method: 'GET',
 		success: function (data) {
-			if(data.instance_ids=="[]")
+			if(data.instance_ids.length===0)
 			{
 				document.getElementById("startServer").disabled=false;
 				document.getElementById("stopServer").disabled=true;
+				document.getElementById("details").innerText ="server is stoppped. Please click on start button to start the server";
 			} 
 			else
 			{
 			   	document.getElementById("startServer").disabled=true;
 				document.getElementById("stopServer").disabled=false;
+				document.getElementById("details").innerText ="server is already running. Please click on stop button to stop the server";
 			}		
 		},
 		error: function () {
-		   console.log('Error while calling Config service');
+		   console.log('Error while calling serverDetails service');
 		}
 
 	});
